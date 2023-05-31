@@ -1,0 +1,21 @@
+.header__title {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  /* font-weight: 500; */
+}
+
+.header {
+  margin-top: 45px;
+}
+.header__line {
+  min-width: 50px;
+  height: 1px;
+  background-color: #545454;
+  flex-grow: 1;
+  margin-top: 41px;
+  margin-bottom: 36px;
+}
+.header_logo {
+  background-image: url(../images/Around.svg);
+  width: 173px;
+  height: 33px;
+}
