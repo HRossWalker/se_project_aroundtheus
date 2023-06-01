@@ -4,7 +4,6 @@
 @import url(../blocks/header.css);
 @import url(../blocks/content.css);
 @import url(../blocks/card.css);
-@import url(../blocks/cards.css);
 @import url(../blocks/footer.css);
 @import url(../blocks/profile.css);
 
@@ -13,7 +12,6 @@
     min-width: 298px;
   }
   .page__section {
-    margin: 0 auto;
     max-width: calc(100% - 40px);
   }
 }
@@ -57,12 +55,12 @@
     text-align: center;
     font-size: 14px;
     line-height: 17px;
+    margin-bottom: 36px;
   }
   .profile__add-button {
-    margin: 0;
     width: 100%;
     max-width: 282px;
-    margin: 36px 0;
+    margin: 0;
   }
 
   .profile__edit-button {
