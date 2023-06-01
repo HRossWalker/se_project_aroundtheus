@@ -1,6 +1,5 @@
 .header__title {
   font-family: "Inter", Arial, Helvetica, sans-serif;
-  /* font-weight: 500; */
 }
 
 .header {
@@ -16,6 +15,7 @@
   width: 173px;
   height: 33px;
 }
+
 @media screen and (max-width: 920px) {
   .header {
     max-width: 581px;
@@ -26,9 +26,12 @@
   .header {
     padding-bottom: 32px;
     margin-bottom: 38px;
+    margin-top: 28px;
   }
+
   .header__logo {
     width: 126px;
     height: 24px;
+    padding-left: 27px;
   }
 }

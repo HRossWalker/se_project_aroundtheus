@@ -1,7 +1,9 @@
 .page {
   background-color: #000;
   color: #fff;
+  margin: 0;
 }
+
 .page__content {
   display: flex;
   flex-direction: column;
@@ -9,6 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
 }
+
 .page__section {
   max-width: 880px;
   width: 100%;
@@ -23,6 +26,7 @@
     max-width: calc(100% - 40px);
   }
 }
+
 @media screen and (max-width: 879px) {
   .page__content {
     margin: 0;
