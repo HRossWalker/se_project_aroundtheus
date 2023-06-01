@@ -1,7 +1,6 @@
 # Project 3: Around The U.S.
 
 Author: H. Ross Walker
-Site: https://hrosswalker.github.io/se_project_aroundtheus/
 
 ### Overview
 
