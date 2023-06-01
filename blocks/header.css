@@ -5,17 +5,30 @@
 
 .header {
   margin-top: 45px;
-}
-.header__line {
-  min-width: 50px;
-  height: 1px;
-  background-color: #545454;
-  flex-grow: 1;
-  margin-top: 41px;
+  border-bottom: 1px solid rgba(54, 54, 54, 0.7);
   margin-bottom: 36px;
+  padding-bottom: 41px;
+  max-width: 880px;
+  width: 100%;
 }
-.header_logo {
-  background-image: url(../images/Around.svg);
+
+.header__logo {
   width: 173px;
   height: 33px;
+}
+@media screen and (max-width: 920px) {
+  .header {
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 581px) {
+  .header {
+    padding-bottom: 32px;
+    margin-bottom: 38px;
+  }
+  .header__logo {
+    width: 126px;
+    height: 24px;
+  }
 }
