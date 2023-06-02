@@ -53,6 +53,7 @@
 }
 
 .profile__description {
+  max-width: 373px;
   grid-area: description;
   font-size: 18px;
   line-height: 22px;
@@ -93,7 +94,6 @@
 
 @media screen and (max-width: 581px) {
   .profile {
-    display: flex;
     flex-direction: column;
     padding: 0 19px;
   }
