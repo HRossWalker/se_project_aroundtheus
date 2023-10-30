@@ -45,3 +45,26 @@
   opacity: 0.5;
   cursor: pointer;
 }
+
+.card__like-button_active {
+  background-image: url(../images/like-button-black.svg);
+  transition: opacity 1s;
+}
+
+.card__basura-button {
+  position: relative;
+  top: 36px;
+  right: 15px;
+  background: transparent url(../images/basura.svg) center no-repeat;
+  width: 18px;
+  height: 20px;
+  border: none;
+  transition: opacity 1s;
+  align-self: end;
+  padding: 0;
+}
+
+.card__basura-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
