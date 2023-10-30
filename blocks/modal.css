@@ -99,10 +99,15 @@
 }
 
 .modal__picture-container {
-  width: 100%;
-  position: relative;
+  background: none;
+  padding: 0;
+  max-height: 75vh;
+  max-width: 75vw;
+  width: auto;
+  height: auto;
+  display: flex;
   margin: auto;
-  box-sizing: border-box;
+  position: relative;
 }
 
 .modal__picture-view {
@@ -119,27 +124,12 @@
   font-family: "Inter", Arial, Helvetica, sans-serif;
 }
 
-.modal__container_type_image {
-  background: none;
-  padding: 0;
-  max-height: 75vh;
-  max-width: 75vw;
-  width: auto;
-  height: auto;
-  display: flex;
-  margin: auto;
-  position: relative;
-}
-
 @media screen and (max-width: 880px) {
   .modal__container {
     padding: 22px 25px;
     max-width: 282px;
   }
 
-  /* .modal__container_type_image{
-
-  } */
   .modal__close {
     width: 26px;
     height: 26px;
