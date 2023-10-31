@@ -52,11 +52,11 @@
   transition: opacity 1s;
 }
 
-.card__basura-button {
+.card__trash-button {
   position: absolute;
   top: 18px;
   right: 15px;
-  background: transparent url(../images/basura.svg) center no-repeat;
+  background: transparent url(../images/trash.svg) center no-repeat;
   width: 18px;
   height: 20px;
   border: none;
