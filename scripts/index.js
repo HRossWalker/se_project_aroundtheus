@@ -25,8 +25,6 @@ const initialCards = [
   },
 ];
 
-// const profileEditOpen = document.querySelector("#profile-add-modal");
-
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileEditCloseButton = profileEditModal.querySelector(".modal__close");
@@ -39,8 +37,7 @@ const profileDecriptionInput = document.querySelector(
 const cardAddButton = document.querySelector("#card-add-button");
 const cardAddModal = document.querySelector("#card-add-modal");
 const cardAddCloseButton = cardAddModal.querySelector(".modal__close");
-// const cardAddTitle = document.querySelector(".profile__title");
-// const cardAddImgLink = document.querySelector(".profile__img-link");
+
 const cardAddTitleInput = document.querySelector("#card-title-input");
 const cardAddImgLinkInput = document.querySelector("#modal-img-link-input");
 const cardListElement = document.querySelector(".cards__list");
@@ -85,12 +82,6 @@ profileEditButton.addEventListener("click", () => {
 
 cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
 
-// profileEditCloseButton.addEventListener("click", () =>
-//   closePopup(profileEditModal)
-// );
-
-// cardAddCloseButton.addEventListener("click", () => closePopup(cardAddModal));
-
 const closeButtons = document.querySelectorAll(".modal__close");
 
 closeButtons.forEach((button) => {
@@ -104,19 +95,14 @@ function getCardView(data) {
   const cardTitleElement = cardElement.querySelector(".card__title");
   cardTitleElement.textContent = data.name;
   cardImageElement.setAttribute("src", data.link);
-  // cardImageElement.src = data.link;
-  cardImageElement.setAttribute("alt", data.name);
-  // cardImageElement.alt = data.name;
-  // cardListElement.prepend(cardElement);
 
-  // add event listner for like,
+  cardImageElement.setAttribute("alt", data.name);
+
   const cardLikeButton = cardElement.querySelector(".card__like-button");
   cardLikeButton.addEventListener("click", () => {
     cardLikeButton.classList.toggle("card__like-button_active");
-    // cardLikeButton.classList.toggle(".card__like-button");
   });
 
-  //listener delete,
   const cardTrash = cardElement.querySelector(".card__trash-button");
   cardTrash.addEventListener("click", () => {
     cardElement.remove();
@@ -125,14 +111,10 @@ function getCardView(data) {
   cardImageElement.addEventListener("click", () => {
     cardPictureElement.src = data.link;
     cardPictureElement.alt = data.name;
-    // cardPictureTitle = data.name;
+
     cardPictureTitle.textContent = data.name;
     openPopup(cardPictureModal);
   });
-
-  // cardPictureCloseButton.addEventListener("click", () => {
-  //   closePopup(cardPictureModal);
-  // });
 
   return cardElement;
 }
@@ -142,26 +124,16 @@ function handleProfileAddSubmit(e) {
   console.log("form submitted");
   const name = e.target.title.value;
   const link = e.target.link.value;
-  const cardView = getCardView({ name, link });
-  renderCard(cardView, cardListElement);
-  // renderCard(e, cardListElement);
+  renderCard({ name, link }, cardListElement);
   closePopup(cardAddModal);
   e.target.reset();
 }
 
-// function renderCard(data, container) {
-//   const cardView = getCardView(data);
-//   container.prepend(cardView);
-// }
-
-//    Tried to implement your recommendation for the universal function but couldn't get it to work.
-
-function renderCard(cardElement, container) {
-  container.prepend(cardElement);
+function renderCard(data, container) {
+  const cardView = getCardView(data);
+  container.prepend(cardView);
 }
 
 initialCards.forEach(function (data) {
-  const cardView = getCardView(data);
-  renderCard(cardView, cardListElement);
-  //renderCard(data, cardListElement);
+  renderCard(data, cardListElement);
 });
