@@ -85,7 +85,7 @@
   border: none;
 }
 
-.modal__button_disabled {
+.modal__button-disabled {
   opacity: 0.5;
 }
 
