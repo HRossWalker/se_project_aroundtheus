@@ -57,11 +57,54 @@ const profileEditForm = document.forms["modal-form"];
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keyup", handleEsc);
 }
 
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keyup", handleEsc);
+  resetForm(modal.form);
 }
+
+const modalEscClose = (e, action) => {
+  const activePopup = document.querySelector(".modal_opened");
+
+  if (e.key === "Escape") {
+    action(activePopup);
+  }
+};
+
+function handleEsc(e) {
+  e.preventDefault();
+  modalEscClose(e, closePopup);
+}
+
+profileEditModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closePopup(profileEditModal);
+  }
+});
+
+cardAddModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closePopup(cardAddModal);
+  }
+});
+
+cardPictureModal.addEventListener("mousedown", (e) => {
+  if (
+    e.target.classList.contains("modal") ||
+    e.target.classList.contains("modal__close")
+  ) {
+    closePopup(cardPictureModal);
+  }
+});
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardForm.addEventListener("submit", handleProfileAddSubmit);
