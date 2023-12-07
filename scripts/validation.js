@@ -42,8 +42,10 @@ function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
   disableButton(submitButton, inactiveButtonClass);
 }
 
-function resetForm(formEl) {
-  document.getElementById(formEl.id).reset();
+function resetValidation(formEl, inputEls, options) {
+  inputEls.forEach((inputEl) => {
+    hideInputError(formEl, inputEl, options);
+  });
 }
 
 function setEventListeners(formEl, options) {
@@ -57,15 +59,6 @@ function setEventListeners(formEl, options) {
     });
   });
 
-  // look for all inputs inside of form
-  // loop through all the inputs to see if all are valid
-  // if input is not valid
-  // get validation message
-  // add error class to input
-  // display error message
-  // diable button
-  // if all inputs are valid
-  // enable button
   // reset error messages
 }
 
@@ -84,7 +77,7 @@ const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__save-button",
-  inactiveButtonClass: "modal__button_disabled",
+  inactiveButtonClass: "modal__button-disabled",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_visible",
 };

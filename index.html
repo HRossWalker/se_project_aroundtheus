@@ -106,29 +106,33 @@
         <button class="modal__close" id="modal-add-close"></button>
         <p class="modal__heading">New Place</p>
         <form class="modal__form" id="modal-add-form">
-          <input
-            class="modal__input"
-            type="text"
-            name="title"
-            id="card-title-input"
-            placeholder="Name"
-            minlength="1"
-            maxlength="30"
-            required
-          />
-          <span class="modal__input-error" id="card-title-input-error"></span>
-          <input
-            class="modal__input"
-            type="text"
-            name="link"
-            id="modal-img-link-input"
-            placeholder="Link address"
-            required
-          />
-          <span
-            class="modal__input-error"
-            id="modal-img-link-input-error"
-          ></span>
+          <label class="modal__label">
+            <input
+              class="modal__input"
+              type="text"
+              name="title"
+              id="card-title-input"
+              placeholder="Name"
+              minlength="1"
+              maxlength="30"
+              required
+            />
+            <span class="modal__input-error" id="card-title-input-error"></span>
+          </label>
+          <label class="modal__label">
+            <input
+              class="modal__input"
+              type="url"
+              name="link"
+              id="modal-img-link-input"
+              placeholder="Link address"
+              required
+            />
+            <span
+              class="modal__input-error"
+              id="modal-img-link-input-error"
+            ></span>
+          </label>
           <button class="modal__save-button modal__button-disabled" disabled>
             Save
           </button>

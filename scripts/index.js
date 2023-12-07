@@ -57,13 +57,22 @@ const profileEditForm = document.forms["modal-form"];
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
+  // run toggle button state, but before check are all fields valid
+
+  // if (checkInputValidity(, config.inputSelector, config)) {
+  //   toggleButtonState(addCardForm, e, config.inactiveButtonClass);
+  // }
   document.addEventListener("keyup", handleEsc);
 }
 
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  // erase errors
+  // console.log(config.errorClass);
+  // modal.classList.remove(config.errorClass);
+
+  // modal.classList.remove("modal__input-error_visible");
   document.removeEventListener("keyup", handleEsc);
-  resetForm(modal.form);
 }
 
 const modalEscClose = (e, action) => {
@@ -115,11 +124,14 @@ function handleProfileEditSubmit(e) {
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDecriptionInput.value;
   closePopup(profileEditModal);
+  // resetValidation(profileEditModal.querySelector("modal__input"));
 }
 
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDecriptionInput.value = profileDescription.textContent;
+  // console.log(profileEditModal.querySelectorAll("modal__input"));
+  // resetValidation(profileEditModal.querySelectorAll("modal__input");
   openPopup(profileEditModal);
 });
 
@@ -170,6 +182,8 @@ function handleProfileAddSubmit(e) {
   renderCard({ name, link }, cardListElement);
   closePopup(cardAddModal);
   e.target.reset();
+
+  // resetValidation(addCardForm, e, config);
 }
 
 function renderCard(data, container) {
