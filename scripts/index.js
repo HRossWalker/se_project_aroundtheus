@@ -82,7 +82,7 @@ modals.forEach((modal) => {
     if (e.target.classList.contains("modal_opened")) {
       closePopup(modal);
     }
-    if (e.target.classList.contains("modal_close")) {
+    if (e.target.classList.contains("modal__close")) {
       closePopup(modal);
     }
   });
