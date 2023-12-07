@@ -102,8 +102,6 @@ function handleProfileEditSubmit(e) {
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDecriptionInput.value = profileDescription.textContent;
-  // console.log(profileEditModal.querySelectorAll("modal__input"));
-  // resetValidation(profileEditModal.querySelectorAll("modal__input");
   openPopup(profileEditModal);
 });
 
@@ -147,8 +145,6 @@ function handleProfileAddSubmit(e) {
   renderCard({ name, link }, cardListElement);
   closePopup(cardAddModal);
   e.target.reset();
-
-  // resetValidation(addCardForm, e, config);
 }
 
 function renderCard(data, container) {
