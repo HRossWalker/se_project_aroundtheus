@@ -31,13 +31,6 @@ class Card {
     this._cardElement = null;
   }
 
-  _handleImageClick() {
-    this._cardElement.textContent = this._name;
-    this._cardImageElement.src = this._link;
-    this._cardImageElement.alt = this._name;
-    openPopup(cardPictureModal);
-  }
-
   getView() {
     this._cardElement = document
       .querySelector(this._cardSelector)
@@ -48,10 +41,6 @@ class Card {
     this._cardImageElement = this._cardElement.querySelector(".card__image");
     this._cardImageElement.src = this._link;
     this._cardImageElement.alt = this._name;
-
-    this._likeButton = this._cardElement.querySelector(".card__like-button");
-    this._trashButton = this._cardElement.querySelector(".card__trash-button");
-
     this._setEventListeners();
 
     return this._cardElement;
