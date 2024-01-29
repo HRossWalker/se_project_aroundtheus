@@ -59,7 +59,8 @@ function openPopup(modal) {
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keyup", handleEsc);
-  //   .resetValidation();
+  editFormValidator.resetValidation();
+  addFormValidator.resetValidation();
 }
 
 const isEscapeEvent = (e, action) => {
@@ -147,23 +148,23 @@ const config = {
   errorClass: "modal__input-error_visible",
 };
 
-// const editFormValidator = new FormValidator(config, profileEditForm);
-// editFormValidator.enableValidation();
+const editFormValidator = new FormValidator(config, profileEditForm);
+editFormValidator.enableValidation();
 
-// const addFormValidator = new FormValidator(config, addCardForm);
-// addFormValidator.enableValidation();
+const addFormValidator = new FormValidator(config, addCardForm);
+addFormValidator.enableValidation();
 
-const formValidators = {};
+// const formValidators = {};
 
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    const formName = formElement.getAttribute("name");
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-  console.log(formList);
-};
-
-enableValidation(config);
+// const enableValidation = (config) => {
+//   const formList = Array.from(document.querySelectorAll(config.formSelector));
+//   formList.forEach((formElement) => {
+//     const validator = new FormValidator(config, formElement);
+//     const formName = formElement.getAttribute("name");
+//     formValidators[formName] = validator;
+//     validator.enableValidation();
+//   });
+//   console.log(formList);
+// };
+//
+// enableValidation(config);
