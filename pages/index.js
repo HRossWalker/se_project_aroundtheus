@@ -59,8 +59,7 @@ function openPopup(modal) {
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keyup", handleEsc);
-  editFormValidator.resetValidation();
-  addFormValidator.resetValidation();
+  // formValidators[].resetValidation();
 }
 
 const isEscapeEvent = (e, action) => {
@@ -95,7 +94,8 @@ function handleProfileEditSubmit(e) {
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDecriptionInput.value;
   closePopup(profileEditModal);
-  editFormValidator.resetValidation();
+  console.log(formValidators);
+  formValidators[profileEditForm.getAttribute("name")].resetValidation();
 }
 
 profileEditButton.addEventListener("click", () => {
@@ -107,10 +107,10 @@ profileEditButton.addEventListener("click", () => {
 cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
 
 function handleImageClick(data) {
-  cardPictureElement.src = data._link;
-  cardPictureElement.alt = data._name;
+  cardPictureElement.src = data.link;
+  cardPictureElement.alt = data.name;
 
-  cardPictureTitle.textContent = data._name;
+  cardPictureTitle.textContent = data.name;
   openPopup(cardPictureModal);
 }
 
@@ -122,7 +122,7 @@ function handleProfileAddSubmit(e) {
   renderCard({ name, link }, cardListElement);
   closePopup(cardAddModal);
   e.target.reset();
-  addFormValidator.resetValidation();
+  formValidators[addCardForm.getAttribute("name")].resetValidation();
 }
 
 function createCard(item) {
@@ -148,23 +148,22 @@ const config = {
   errorClass: "modal__input-error_visible",
 };
 
-const editFormValidator = new FormValidator(config, profileEditForm);
-editFormValidator.enableValidation();
+// const editFormValidator = new FormValidator(config, profileEditForm);
+// editFormValidator.enableValidation();
 
-const addFormValidator = new FormValidator(config, addCardForm);
-addFormValidator.enableValidation();
+// const addFormValidator = new FormValidator(config, addCardForm);
+// addFormValidator.enableValidation();
 
-// const formValidators = {};
+const formValidators = {};
 
-// const enableValidation = (config) => {
-//   const formList = Array.from(document.querySelectorAll(config.formSelector));
-//   formList.forEach((formElement) => {
-//     const validator = new FormValidator(config, formElement);
-//     const formName = formElement.getAttribute("name");
-//     formValidators[formName] = validator;
-//     validator.enableValidation();
-//   });
-//   console.log(formList);
-// };
-//
-// enableValidation(config);
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
