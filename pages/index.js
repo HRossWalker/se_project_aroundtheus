@@ -94,24 +94,7 @@ function handleProfileEditSubmit(e) {
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDecriptionInput.value;
   closePopup(profileEditModal);
-  console.log(formValidators);
   formValidators[profileEditForm.getAttribute("name")].resetValidation();
-}
-
-profileEditButton.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDecriptionInput.value = profileDescription.textContent;
-  openPopup(profileEditModal);
-});
-
-cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
-
-function handleImageClick(data) {
-  cardPictureElement.src = data.link;
-  cardPictureElement.alt = data.name;
-
-  cardPictureTitle.textContent = data.name;
-  openPopup(cardPictureModal);
 }
 
 function handleProfileAddSubmit(e) {
@@ -123,6 +106,22 @@ function handleProfileAddSubmit(e) {
   closePopup(cardAddModal);
   e.target.reset();
   formValidators[addCardForm.getAttribute("name")].resetValidation();
+}
+
+profileEditButton.addEventListener("click", () => {
+  formValidators[profileEditForm.getAttribute("name")].resetValidation();
+  profileTitleInput.value = profileTitle.textContent;
+  profileDecriptionInput.value = profileDescription.textContent;
+  openPopup(profileEditModal);
+});
+
+cardAddButton.addEventListener("click", () => openPopup(cardAddModal));
+
+function handleImageClick(data) {
+  cardPictureElement.src = data.link;
+  cardPictureElement.alt = data.name;
+  cardPictureTitle.textContent = data.name;
+  openPopup(cardPictureModal);
 }
 
 function createCard(item) {
