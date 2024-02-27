@@ -1,8 +1,8 @@
-import Card from "../scripts/Card.js";
-import FormValidator from "../scripts/FormValidator.js";
-import PopupWithForm from "../scripts/PopupWithForm.js";
-import PopupWithImages from "../scripts/PopupWithImages.js";
-import UserInfo from "../scripts/UserInfo.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImages from "../components/PopupWithImages.js";
+import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
 import {
   initialCards,
@@ -24,7 +24,7 @@ import {
   // addCardForm,
   // profileEditForm,
 } from "../utils/constants.js";
-import Section from "../scripts/Section.js";
+import Section from "../components/Section.js";
 
 const formValidators = {};
 
