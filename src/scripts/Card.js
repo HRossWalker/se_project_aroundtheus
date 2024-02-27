@@ -1,7 +1,7 @@
 class Card {
-  constructor({ name, link }, cardSelector, handleImageClick) {
-    this.name = name;
-    this.link = link;
+  constructor(data, cardSelector, handleImageClick) {
+    this._name = data.name;
+    this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
   }
@@ -25,21 +25,27 @@ class Card {
     this._cardElement = null;
   }
 
-  getView() {
+  _getTemplate() {
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+
+    return this._cardElement;
+  }
+
+  getView() {
+    this._el = this._getTemplate();
     this._cardTitleElement = this._cardElement.querySelector(".card__title");
-    this._cardTitleElement.textContent = this.name;
+    this._cardTitleElement.textContent = this._name;
     this._cardImageElement = this._cardElement.querySelector(".card__image");
-    this._cardImageElement.src = this.link;
-    this._cardImageElement.alt = this.name;
+    this._cardImageElement.src = this._link;
+    this._cardImageElement.alt = this._name;
     this._likeIcon = this._cardElement.querySelector(".card__like-button");
     this._trashIcon = this._cardElement.querySelector(".card__trash-button");
     this._setEventListeners();
 
-    return this._cardElement;
+    return this._el;
   }
 }
 

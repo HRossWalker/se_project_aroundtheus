@@ -13,14 +13,12 @@
       name="keywords"
       content="Journey Hiking Exploration Explore Yosemite"
     />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
         <img
-          src="./images/Around.svg"
+          src="<%=require('./images/Around.svg')%>"
           alt="Logo for Around the US"
           class="header__logo"
         />
@@ -28,18 +26,20 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/jacques-cousteau.jpg"
-            alt="Picture of jacques-cousteau, the famous Explorer"
+            src="<%=require('./images/jacques-cousteau.jpg')%>"
+            alt="Picture of jacques-cousteau,
+          the famous Explorer"
             class="profile__image"
           />
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__name">Jacques Cousteau</h1>
             <button
               type="button"
               class="profile__edit-button"
               id="profile-edit-button"
             ></button>
-            <p class="profile__description">Explorer</p>
+
+            <p class="profile__job">Explorer</p>
           </div>
           <button
             type="button"
@@ -57,42 +57,41 @@
       </footer>
     </div>
 
-    <div class="modal" id="profile-edit-modal">
+    <div class="modal profile-modal" id="profile-edit-modal">
       <div class="modal__container">
         <button class="modal__close"></button>
         <p class="modal__heading">Edit Profile</p>
-        <form class="modal__form" id="modal-form" name="profileForm">
+        <form
+          class="modal__form"
+          id="modal-profile-form"
+          name="profileForm"
+          novalidate
+        >
           <label class="modal__label">
             <input
               class="modal__input"
               type="text"
-              name="title"
-              id="modal-title-input"
+              name="name"
+              id="modal-name-input"
               placeholder="Name"
               minlength="2"
               maxlength="40"
               required
             />
-            <span
-              class="modal__input-error"
-              id="modal-title-input-error"
-            ></span>
+            <span class="modal__input-error" id="modal-name-input-error"></span>
           </label>
           <label class="modal__label">
             <input
               class="modal__input"
               type="text"
-              name="description"
-              id="modal-description-input"
-              placeholder="Description"
+              name="job"
+              id="modal-job-input"
+              placeholder="Job"
               minlength="2"
               maxlength="200"
               required
             />
-            <span
-              class="modal__input-error"
-              id="modal-description-input-error"
-            ></span>
+            <span class="modal__input-error" id="modal-job-input-error"></span>
           </label>
           <button class="modal__save-button modal__button-disabled" disabled>
             Save
@@ -101,11 +100,16 @@
       </div>
     </div>
 
-    <div class="modal" id="card-add-modal">
+    <div class="modal picture-modal" id="card-add-modal">
       <div class="modal__container">
         <button class="modal__close" id="modal-add-close"></button>
         <p class="modal__heading">New Place</p>
-        <form class="modal__form" id="modal-add-form" name="addCardForm">
+        <form
+          class="modal__form"
+          id="modal-add-form"
+          name="addCardForm"
+          novalidate
+        >
           <label class="modal__label">
             <input
               class="modal__input"
@@ -158,7 +162,5 @@
         </div>
       </li>
     </template>
-
-    <script src="./pages/index.js" type="module"></script>
   </body>
 </html>

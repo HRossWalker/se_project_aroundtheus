@@ -52,7 +52,7 @@
   grid-template-columns: minmax(auto, 391px) auto;
 }
 
-.profile__description {
+.profile__job {
   max-width: 373px;
   grid-area: description;
   font-size: 18px;
@@ -64,7 +64,7 @@
   overflow: hidden;
 }
 
-.profile__title {
+.profile__name {
   max-width: 373px;
   font-weight: 500;
   font-size: 42px;
@@ -81,7 +81,7 @@
     max-width: 581px;
   }
 
-  .profile__title {
+  .profile__name {
     max-width: 200px;
     font-size: 22px;
     line-height: 27px;
@@ -91,8 +91,6 @@
     grid-template-columns: minmax(auto, 214px) auto;
   }
 }
-
-
 
 @media screen and (max-width: 581px) {
   .profile {
@@ -108,7 +106,7 @@
     margin-top: 26px;
   }
 
-  .profile__description {
+  .profile__job {
     width: 100%;
     text-align: center;
     font-size: 14px;
