@@ -33,27 +33,10 @@ export const profileEditButton = document.querySelector("#profile-edit-button");
 export const profileNameInput = document.querySelector("#modal-name-input");
 export const profileJobInput = document.querySelector("#modal-job-input");
 
-// export const profileEditModal = document.querySelector("#profile-edit-modal");
-// export const profileTitle = document.querySelector(".profile__title");
-// export const profileDescription = document.querySelector(".profile__job");
-
 //CARD ELEMENTS
 
 export const cardAddButton = document.querySelector("#card-add-button");
 export const cardListElement = document.querySelector(".cards__list");
-
-// export const cardAddModal = document.querySelector("#card-add-modal");
-// export const cardPictureModal = document.querySelector("#card-picture-modal");
-// export const cardPictureElement =
-//   cardPictureModal.querySelector("#modal-picture");
-// export const cardPictureTitle = cardPictureModal.querySelector(
-//   ".modal__picture-heading"
-// );
-
-// FORMS
-
-// export const addCardForm = document.forms["modal-add-form"];
-// export const profileEditForm = document.forms["modal-form"];
 
 // SELECTORS
 

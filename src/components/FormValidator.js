@@ -15,16 +15,14 @@ class FormValidator {
     this._inputList.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
         this._inputEl = inputEl;
-        this._checkInputValidity();
+        this._checkInputValidity(inputEl);
         this._toggleButtonState();
       });
     });
   }
 
   _showInputError() {
-    this._errorMessageEl = this._formEl.querySelector(
-      `${this._inputEl.id}-error`
-    );
+    this._errorMessageEl = document.querySelector(`#${this._inputEl.id}-error`);
     this._errorMessageEl.textContent = this._inputEl.validationMessage;
     this._inputEl.classList.add(this._inputErrorClass);
     this._errorMessageEl.classList.add(this._errorClass);
@@ -38,13 +36,7 @@ class FormValidator {
   }
 
   _hideInputError() {
-    this._errorMessageEl = this._formEl.querySelector(
-      `${this._inputEl.id}-error`
-    );
-    console.log(this._inputEl.id);
-    // console.log(this._errorMessageEl);
-    // console.log(this._inputErrorClass);
-    // console.log(this._errorClass);
+    this._errorMessageEl = document.querySelector(`#${this._inputEl.id}-error`);
     this._errorMessageEl.textContent = "";
     this._inputEl.classList.remove(this._inputErrorClass);
     this._errorMessageEl.classList.remove(this._errorClass);
