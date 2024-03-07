@@ -1,16 +1,16 @@
-# Project 8: Around The U.S.
+# Project 9: Around The U.S.
 
 Author: H. Ross Walker
 Site: https://github.com/HRossWalker/se_project_aroundtheus.git
 
 ### Overview
 
-- Refactoring page
+- creating new branches and utilizing pull requests from github
 - Utitlizing WebPack
-- Running standalone local server
+- Using github to host website
 
 **Intro**
 
-Converting the page to Class's and separating the coding into their own individual files.
+Learning how programming happens in the real world, yea for branches and pull requests.
 
 Good luck and have fun!
