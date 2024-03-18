@@ -32,14 +32,14 @@
             class="profile__image"
           />
           <div class="profile__info">
-            <h1 class="profile__name">H. Ross Walker</h1>
+            <h1 class="profile__name"></h1>
             <button
               type="button"
               class="profile__edit-button"
               id="profile-edit-button"
             ></button>
 
-            <p class="profile__job">Viking Coder</p>
+            <p class="profile__about"></p>
           </div>
           <button
             type="button"
@@ -84,14 +84,17 @@
             <input
               class="modal__input"
               type="text"
-              name="job"
-              id="modal-job-input"
-              placeholder="Job"
+              name="about"
+              id="modal-about-input"
+              placeholder="about"
               minlength="2"
               maxlength="200"
               required
             />
-            <span class="modal__input-error" id="modal-job-input-error"></span>
+            <span
+              class="modal__input-error"
+              id="modal-about-input-error"
+            ></span>
           </label>
           <button class="modal__save-button modal__button-disabled" disabled>
             Save

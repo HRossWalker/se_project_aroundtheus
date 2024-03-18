@@ -31,7 +31,7 @@ export const initialCards = [
 
 export const profileEditButton = document.querySelector("#profile-edit-button");
 export const profileNameInput = document.querySelector("#modal-name-input");
-export const profileJobInput = document.querySelector("#modal-job-input");
+export const profileAboutInput = document.querySelector("#modal-about-input");
 
 //CARD ELEMENTS
 

@@ -52,7 +52,7 @@
   grid-template-columns: minmax(auto, 391px) auto;
 }
 
-.profile__job {
+.profile__about {
   max-width: 373px;
   grid-area: description;
   font-size: 18px;
@@ -106,7 +106,7 @@
     margin-top: 26px;
   }
 
-  .profile__job {
+  .profile__about {
     width: 100%;
     text-align: center;
     font-size: 14px;

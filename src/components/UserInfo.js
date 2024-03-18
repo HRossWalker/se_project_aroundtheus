@@ -1,16 +1,21 @@
+import { api } from "../pages/index.js";
+
 class UserInfo {
-  constructor(nameSelector, jobSelector) {
-    this._name = document.querySelector(nameSelector);
-    this._job = document.querySelector(jobSelector);
+  constructor(userData) {
+    this._name = document.querySelector(".profile__name");
+    this._name.textContent = userData.name;
+    this._about = document.querySelector(".profile__about");
+    this._about.textContent = userData.about;
   }
 
   getUserInfo() {
-    return { name: this._name.textContent, job: this._job.textContent };
+    return api.getUserData();
   }
 
-  setUserInfo({ name, job }) {
+  setUserInfo({ name, about }) {
     this._name.textContent = name;
-    this._job.textContent = job;
+    this._about.textContent = about;
+    api.updateUserData({ name, about });
   }
 }
 

@@ -1,12 +1,15 @@
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
+    this._auth = options.authorization;
+    // this._name = options.name;
+    // this._link = options.link;
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
       },
     }).then((res) => {
       if (res.ok) {
@@ -18,140 +21,95 @@ class Api {
   //get
   getUserData() {
     //get
-    return fetch(`${this._baseUrl}/users/hrosswalker`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
+        "Content-Type": "application/json",
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
-  updateUserData() {
+  updateUserData({ name, about }) {
     //patch
-    return fetch(`${this._baseUrl}/users/hrosswalker`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
+        "Content-Type": "application/json",
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      body: JSON.stringify({ name: `${name}`, about: `${about}` }),
     });
   }
 
   updateAvatar() {
     //patch
-    return fetch(`${this._baseUrl}/users/hrosswalker/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
-  getCards() {
+  getCards(id) {
     //get
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "GET",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
-  createCard() {
+  createCard({ name, link }) {
     //post
-    return fetch(`${this._baseUrl}/users/hrosswalker`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
+        "Content-Type": "application/json",
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      body: JSON.stringify({ name: `${name}`, link: `${link}` }),
     });
   }
 
-  deleteCard() {
+  deleteCard(id) {
     //delete
-    return fetch(`${this._baseUrl}/users/hrosswalker`, {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
-  likeCard() {
+  likeCard(id) {
     //put
-    return fetch(`${this._baseUrl}/users/hrosswalker`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
-  dislikeCard() {
+  dislikeCard(id) {
     //delete
-    return fetch(`${this._baseUrl}/users/hrosswalker`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: {
-        authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
+        authorization: `${this._auth}`,
       },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then(() => {});
+    });
   }
 }
 
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
-    "Content-Type": "application/json",
-  },
-});
+export default Api;
 
-api
-  .getInitialCards()
-  .then((result) => {
-    result.array.forEach((element) => {});
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// .then((res) => {
+//   if (res.ok) {
+//     return res.json();
+//   }
+//   return Promise.reject(`Error: ${res.status}`);
+// })

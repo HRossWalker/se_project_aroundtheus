@@ -1,7 +1,10 @@
+import { api } from "../pages/index.js";
+
 class Card {
   constructor(data, cardSelector, handleImageClick) {
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
   }
@@ -22,6 +25,7 @@ class Card {
 
   _handleDeleteCard() {
     this._cardElement.remove();
+    api.deleteCard(this._id);
     this._cardElement = null;
   }
 
