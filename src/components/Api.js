@@ -2,8 +2,6 @@ class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._auth = options.authorization;
-    // this._name = options.name;
-    // this._link = options.link;
   }
 
   getInitialCards() {
@@ -44,13 +42,13 @@ class Api {
 
   updateAvatar(link) {
     //patch
-    console.log(`****${link}`);
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
         authorization: `${this._auth}`,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ avatar: `${link}` }),
+      body: JSON.stringify({ avatar: link }),
     });
   }
 

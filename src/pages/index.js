@@ -32,12 +32,21 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
+//API
+
 export const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
 });
 
-let cardSection;
+api
+  .getUserData()
+  .then((results) => results.json())
+  .then((data) => {
+    data;
+    currentAvatar = data.avatar;
+    initialUserData = new UserInfo(data);
+  });
 
 api.getInitialCards().then((data) => {
   data;
@@ -69,33 +78,34 @@ const createCard = (cardItem) => {
   return card.getView();
 };
 
-// const oneCard = {
-//   name: "Lago di Braies",
-//   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-// };
+//VAR
 
-// api.createCard(oneCard).then(console.log(oneCard));
+let cardSection;
+let initialUserData;
+let currentAvatar;
+let profileData;
+
+//Popups
 
 const imgPopup = new PopupWithImages("#card-picture-modal");
 imgPopup.setEventListeners();
-
-let initialUserData;
-let currentAvatar;
-
-api
-  .getUserData()
-  .then((results) => results.json())
-  .then((data) => {
-    data;
-    currentAvatar = data.avatar;
-    initialUserData = new UserInfo(data);
-  });
 
 const profilePopup = new PopupWithForm(
   "#profile-edit-modal",
   handleProfileUpdate
 );
 profilePopup.setEventListeners();
+
+const newCardPopup = new PopupWithForm("#card-add-modal", handleAddCard);
+newCardPopup.setEventListeners();
+
+export const deleteConfirmPopup = new PopupConfirmation("#modal-delete");
+deleteConfirmPopup.setEventListeners();
+
+const avatarPopup = new PopupWithForm("#modal-avatar", handleUpdateAvatar);
+avatarPopup.setEventListeners();
+
+//HANDLES
 
 function handleProfileUpdate(userData) {
   initialUserData.setUserInfo(userData);
@@ -106,9 +116,6 @@ function handleProfileUpdate(userData) {
     .catch((err) => console.error(`${err}, Failed to update Avatar`))
     .finally(() => profilePopup.setLoading(false));
 }
-
-const newCardPopup = new PopupWithForm("#card-add-modal", handleAddCard);
-newCardPopup.setEventListeners();
 
 function handleAddCard(cardData) {
   const cardFormElement = createCard(cardData);
@@ -121,7 +128,19 @@ function handleAddCard(cardData) {
     .finally(() => newCardPopup.setLoading(false));
 }
 
-let profileData;
+function handleUpdateAvatar(input) {
+  avatarPopup.setLoading(true);
+  api
+    .updateAvatar(input.link)
+    .then(() => {
+      avatarProfileImage.src = input.link;
+      avatarPopup.close();
+    })
+    .catch((err) => console.error(`${err}, Failed to update Avatar`))
+    .finally(() => avatarPopup.setLoading(false));
+}
+
+//EVENT LISTENER
 
 profileEditButton.addEventListener("click", () => {
   formValidators["profileForm"].resetValidation();
@@ -141,27 +160,6 @@ cardAddButton.addEventListener("click", () => {
   formValidators["addCardForm"].resetValidation();
   newCardPopup.open();
 });
-
-//********
-
-export const deleteConfirmPopup = new PopupConfirmation("#modal-delete");
-deleteConfirmPopup.setEventListeners();
-
-const avatarPopup = new PopupWithForm("#modal-avatar", handleUpdateAvatar);
-avatarPopup.setEventListeners();
-
-function handleUpdateAvatar(input) {
-  avatarPopup.setLoading(true);
-  api
-    .updateAvatar(input.link)
-    .then((result) => {
-      console.log(result.avatar);
-      avatarProfileImage.setAvatar(result.avatar);
-      avatarPopup.close();
-    })
-    .catch((err) => console.error(`${err}, Failed to update Avatar`))
-    .finally(() => avatarPopup.setLoading(false));
-}
 
 avatarUpdateButton.addEventListener("click", () => {
   formValidators["avatarUpdate"].resetValidation();
