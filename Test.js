@@ -63,13 +63,6 @@ class Test {
         initialCards,
       }),
     });
-
-    //.then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   }
-    //   return Promise.reject(`Error: ${res.status}`);
-    // })
   }
   getUserData() {
     //get
@@ -92,6 +85,32 @@ class Test {
       body: JSON.stringify({ name: `${name}`, job: `${job}` }),
     });
   }
+
+  likeCard(id) {
+    //put
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: {
+        authorization: `${this._auth}`,
+      }.then((res) => {
+        if (res.ok) {
+          const isLiked = true;
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      }),
+    });
+  }
+
+  getLikeStatus(id) {
+    //get
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "GET",
+      headers: {
+        authorization: `${this._auth}`,
+      },
+    });
+  }
+
   createCard(id) {
     //post
     return fetch(`${this._baseUrl}/cards/${id}`, {
@@ -120,6 +139,9 @@ test
   .getUserData()
   .then((results) => results.json())
   .then((data) => console.log(data));
+
+// Viking Image
+// https://cdn.pixabay.com/photo/2024/02/26/09/17/ai-generated-8597459_640.jpg
 
 // test
 //   .getInitialCards()

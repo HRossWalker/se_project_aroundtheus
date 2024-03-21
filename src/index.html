@@ -25,12 +25,10 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/H-Ross-Walker.jpg')%>"
-            alt="Picture of H-Ross-Walker,
-          the famous Viking Coder"
-            class="profile__image"
-          />
+          <div class="profile__avatar-container">
+            <button class="profile__avatar-edit"></button>
+            <img src="" alt="Avatar" class="profile__image" />
+          </div>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
             <button
@@ -152,6 +150,63 @@
         <button class="modal__close" id="modal-picture-close"></button>
         <img class="modal__picture-view" id="modal-picture" src="#" alt="" />
         <p class="modal__picture-heading"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-delete">
+      <div class="modal__delete-modal">
+        <button class="modal__close" id="modal-delete-close"></button>
+        <p class="modal__delete-heading">Are you sure?</p>
+        <button class="modal__delete-btn" id="modal-del-btn">Yes</button>
+        <!-- make classes for this Modal -->
+      </div>
+    </div>
+
+    <div class="modal" id="modal-avatar">
+      <div class="modal__avatar">
+        <button class="modal__close" id="modal-avatar-close"></button>
+
+        <form
+          class="modal__form"
+          id="modal-avatar-form"
+          name="avatarUpdate"
+          novalidate
+        >
+          <p class="modal__avatar-heading">Change profile picture?</p>
+          <label class="modal__label-avatar-input">
+            <input
+              class="modal__input"
+              type="url"
+              name="link"
+              id="modal-avatar-link-input"
+              placeholder="Link address"
+              required
+            />
+            <span
+              class="modal__input-error"
+              id="modal-avatar-link-input-error"
+            ></span>
+          </label>
+          <label class="modal__label-avatar">
+            <button
+              class="modal__save-button modal__button-disabled"
+              id="modal-avatar-btn"
+              disabled
+            >
+              Save
+            </button>
+          </label>
+        </form>
+        <!-- <input
+          class="modal__input modal__avatar-link"
+          type="url"
+          name="link"
+          id="modal-avatar-link-input"
+          placeholder="Avatar address"
+          required
+        /> -->
+        <!-- <button class="modal__avatar-btn" id="modal-avatar-btn">Yes</button> -->
+        <!-- make classes for this Modal -->
       </div>
     </div>
 

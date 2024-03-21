@@ -1,5 +1,6 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupConfirmation from "../components/PopupConfirmation.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImages from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
@@ -7,11 +8,13 @@ import Api from "../components/Api.js";
 import "../pages/index.css";
 import {
   cardAddButton,
+  avatarUpdateButton,
   profileEditButton,
   profileNameInput,
   profileAboutInput,
   cardListElement,
   config,
+  avatarProfileImage,
 } from "../utils/utils.js";
 import Section from "../components/Section.js";
 
@@ -38,6 +41,7 @@ let cardSection;
 
 api.getInitialCards().then((data) => {
   data;
+
   cardSection = new Section(
     {
       data: data,
@@ -51,23 +55,17 @@ api.getInitialCards().then((data) => {
   cardSection.renderItems();
 });
 
-// api
-//   .createCard()
-//   .then((result) => {
-//     result.array.forEach((element) => {});
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
-
-// api.deleteCard(0);
-
 const createCard = (cardItem) => {
-  const card = new Card(cardItem, "#card-template", () => {
-    console.log(cardItem);
-    imgPopup.open(cardItem);
-    // api.createCard(cardItem);
-  });
+  const card = new Card(
+    cardItem,
+    "#card-template",
+    () => {
+      imgPopup.open(cardItem);
+    },
+    (cardId) => {
+      deleteConfirmPopup.open(card, cardId);
+    }
+  );
   return card.getView();
 };
 
@@ -82,30 +80,46 @@ const imgPopup = new PopupWithImages("#card-picture-modal");
 imgPopup.setEventListeners();
 
 let initialUserData;
+let currentAvatar;
 
 api
   .getUserData()
   .then((results) => results.json())
   .then((data) => {
     data;
+    currentAvatar = data.avatar;
     initialUserData = new UserInfo(data);
   });
 
-const profilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
-  profilePopup.close();
-  initialUserData.setUserInfo(data);
-  api.updateUserData(data);
-});
+const profilePopup = new PopupWithForm(
+  "#profile-edit-modal",
+  handleProfileUpdate
+);
 profilePopup.setEventListeners();
 
-const newCardPopup = new PopupWithForm("#card-add-modal", (data) => {
-  console.log(data);
-  const cardFormElement = createCard(data);
-  cardSection.addItem(cardFormElement);
-  api.createCard(data);
-  newCardPopup.close();
-});
+function handleProfileUpdate(userData) {
+  initialUserData.setUserInfo(userData);
+  profilePopup.setLoading(true);
+  api
+    .updateUserData(userData)
+    .then(() => profilePopup.close())
+    .catch((err) => console.error(`${err}, Failed to update Avatar`))
+    .finally(() => profilePopup.setLoading(false));
+}
+
+const newCardPopup = new PopupWithForm("#card-add-modal", handleAddCard);
 newCardPopup.setEventListeners();
+
+function handleAddCard(cardData) {
+  const cardFormElement = createCard(cardData);
+  cardSection.addItem(cardFormElement);
+  newCardPopup.setLoading(true);
+  api
+    .createCard(cardData)
+    .then(() => newCardPopup.close())
+    .catch((err) => console.error(`${err}, Failed to update Avatar`))
+    .finally(() => newCardPopup.setLoading(false));
+}
 
 let profileData;
 
@@ -126,4 +140,30 @@ profileEditButton.addEventListener("click", () => {
 cardAddButton.addEventListener("click", () => {
   formValidators["addCardForm"].resetValidation();
   newCardPopup.open();
+});
+
+//********
+
+export const deleteConfirmPopup = new PopupConfirmation("#modal-delete");
+deleteConfirmPopup.setEventListeners();
+
+const avatarPopup = new PopupWithForm("#modal-avatar", handleUpdateAvatar);
+avatarPopup.setEventListeners();
+
+function handleUpdateAvatar(input) {
+  avatarPopup.setLoading(true);
+  api
+    .updateAvatar(input.link)
+    .then((result) => {
+      console.log(result.avatar);
+      avatarProfileImage.setAvatar(result.avatar);
+      avatarPopup.close();
+    })
+    .catch((err) => console.error(`${err}, Failed to update Avatar`))
+    .finally(() => avatarPopup.setLoading(false));
+}
+
+avatarUpdateButton.addEventListener("click", () => {
+  formValidators["avatarUpdate"].resetValidation();
+  avatarPopup.open();
 });

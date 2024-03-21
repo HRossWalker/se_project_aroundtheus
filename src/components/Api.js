@@ -42,13 +42,15 @@ class Api {
     });
   }
 
-  updateAvatar() {
+  updateAvatar(link) {
     //patch
+    console.log(`****${link}`);
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
         authorization: `${this._auth}`,
       },
+      body: JSON.stringify({ avatar: `${link}` }),
     });
   }
 
@@ -91,16 +93,23 @@ class Api {
       headers: {
         authorization: `${this._auth}`,
       },
+      body: JSON.stringify({ isLiked: true }),
     });
   }
 
-  dislikeCard(id) {
+  disLikeCard(id) {
     //delete
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: {
         authorization: `${this._auth}`,
       },
+      // .then((res) => {
+      //   if (res.ok) {
+      //     const isLiked = false;
+      //   }
+      //   return Promise.reject(`Error: ${res.status}`);
+      // })
     });
   }
 }
