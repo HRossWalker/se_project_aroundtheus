@@ -71,8 +71,8 @@ const createCard = (cardItem) => {
     () => {
       imgPopup.open(cardItem);
     },
-    (cardId) => {
-      deleteConfirmPopup.open(card, cardId);
+    () => {
+      deleteConfirmPopup.open(card);
     }
   );
   return card.getView();
@@ -84,6 +84,7 @@ let cardSection;
 let initialUserData;
 let currentAvatar;
 let profileData;
+let newCardData;
 
 //Popups
 
@@ -99,13 +100,20 @@ profilePopup.setEventListeners();
 const newCardPopup = new PopupWithForm("#card-add-modal", handleAddCard);
 newCardPopup.setEventListeners();
 
-export const deleteConfirmPopup = new PopupConfirmation("#modal-delete");
+export const deleteConfirmPopup = new PopupConfirmation(
+  "#modal-delete",
+  handleDeleteConfirmation
+);
 deleteConfirmPopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm("#modal-avatar", handleUpdateAvatar);
 avatarPopup.setEventListeners();
 
 //HANDLES
+
+function handleDeleteConfirmation(card, id) {
+  card.handleDeleteCard(id);
+}
 
 function handleProfileUpdate(userData) {
   initialUserData.setUserInfo(userData);
@@ -118,12 +126,21 @@ function handleProfileUpdate(userData) {
 }
 
 function handleAddCard(cardData) {
-  const cardFormElement = createCard(cardData);
-  cardSection.addItem(cardFormElement);
   newCardPopup.setLoading(true);
   api
     .createCard(cardData)
-    .then(() => newCardPopup.close())
+    .then((result) => {
+      if (result.ok) return result.json();
+    })
+    .then((data) => {
+      // console.log(`**handleAddCard**${data}`);
+      const cardFormElement = createCard(data);
+      cardSection.addItem(cardFormElement);
+
+      // ************************************************************************** need to pull id from server now or before like and delete
+
+      newCardPopup.close();
+    })
     .catch((err) => console.error(`${err}, Failed to update Avatar`))
     .finally(() => newCardPopup.setLoading(false));
 }

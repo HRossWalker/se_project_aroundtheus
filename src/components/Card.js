@@ -2,13 +2,20 @@ import { api } from "../pages/index.js";
 import { deleteConfirmPopup } from "../pages/index.js";
 
 class Card {
-  constructor(data, cardSelector, handleImageClick, handleDeleteClick) {
+  constructor(
+    data,
+    cardSelector,
+    handleImageClick,
+    handleDeleteClick,
+    handleLikeDislikeClick
+  ) {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
     this._likeStatus = data.isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._handleLikeDisLike = handleLikeDislikeClick;
     this._handleDeleteClick = handleDeleteClick;
   }
 
@@ -20,8 +27,8 @@ class Card {
     this._likeIcon.addEventListener("click", () => this._handleLikeIcon());
 
     this._trashIcon.addEventListener("click", () => {
-      //this._handleDeleteConfirm(this._id)
-      this._handleDeleteCard();
+      this._handleDeleteClick(this._id);
+      // this._handleDeleteCard();
     });
   }
 
@@ -40,13 +47,13 @@ class Card {
   handleDeleteCard(cardId) {
     this._cardElement.remove();
     api.deleteCard(cardId);
-    this._cardElement = null;
+    // this._cardElement = null;
   }
 
-  _handleDeleteCard() {
-    // we can do any actions here
-    this._handleDeleteClick(this._id);
-  }
+  // _handleDeleteCard() {
+  //   // we can do any actions here
+  //   this._handleDeleteClick(this._id);
+  // }
 
   _getTemplate() {
     this._cardElement = document
@@ -69,7 +76,7 @@ class Card {
       this._likeIcon.classList.add("card__like-button_active");
     this._trashIcon = this._cardElement.querySelector(".card__trash-button");
     this._deleteModal = document.querySelector("modal__delete-modal_active");
-    this._deleteYes = document.querySelector("modal__delete-yes");
+
     this._setEventListeners();
 
     return this._element;

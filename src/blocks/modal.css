@@ -65,12 +65,6 @@
   box-sizing: border-box;
 }
 
-/* .modal__delete-modal_active {
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s, opacity 0.6s;
-} */
-
 .modal__delete-heading {
   width: 358px;
   height: 23px;

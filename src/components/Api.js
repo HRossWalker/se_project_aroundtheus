@@ -2,6 +2,7 @@ class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._auth = options.authorization;
+    this._id;
   }
 
   getInitialCards() {
@@ -80,6 +81,7 @@ class Api {
       method: "DELETE",
       headers: {
         authorization: `${this._auth}`,
+        "Content-Type": "application/json",
       },
     });
   }
@@ -90,6 +92,7 @@ class Api {
       method: "PUT",
       headers: {
         authorization: `${this._auth}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ isLiked: true }),
     });
@@ -101,6 +104,7 @@ class Api {
       method: "DELETE",
       headers: {
         authorization: `${this._auth}`,
+        "Content-Type": "application/json",
       },
       // .then((res) => {
       //   if (res.ok) {
