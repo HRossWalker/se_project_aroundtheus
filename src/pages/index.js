@@ -32,6 +32,11 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
+//VAR
+
+let cardSection;
+let initialUserData;
+
 //API
 
 export const api = new Api({
@@ -41,28 +46,29 @@ export const api = new Api({
 
 api
   .getUserData()
-  .then((results) => results.json())
+  .then((data) => {
+    initialUserData = new UserInfo(data);
+  })
+  .catch((err) => console.error(`${err} Profile info may be incorrect`));
+
+api
+  .getInitialCards()
   .then((data) => {
     data;
-    currentAvatar = data.avatar;
-    initialUserData = new UserInfo(data);
-  });
 
-api.getInitialCards().then((data) => {
-  data;
-
-  cardSection = new Section(
-    {
-      data: data,
-      renderer: (data) => {
-        const cardElement = createCard(data);
-        cardSection.addItem(cardElement);
+    cardSection = new Section(
+      {
+        data: data,
+        renderer: (data) => {
+          const cardElement = createCard(data);
+          cardSection.addItem(cardElement);
+        },
       },
-    },
-    cardListElement
-  );
-  cardSection.renderItems();
-});
+      cardListElement
+    );
+    cardSection.renderItems();
+  })
+  .catch((err) => console.error(`${err} Cards may be missing`));
 
 const createCard = (cardItem) => {
   const card = new Card(
@@ -73,18 +79,24 @@ const createCard = (cardItem) => {
     },
     () => {
       deleteConfirmPopup.open(card);
+    },
+
+    (likeStatus, id) => {
+      if (!likeStatus) {
+        api
+          .likeCard(id)
+          .then(() => card._handleLikeIcon())
+          .catch((err) => console.error(`${err}, Failed to like card`));
+      } else {
+        api
+          .disLikeCard(id)
+          .then(() => card._handleLikeIcon())
+          .catch((err) => console.error(`${err}, Failed to dislike card`));
+      }
     }
   );
   return card.getView();
 };
-
-//VAR
-
-let cardSection;
-let initialUserData;
-let currentAvatar;
-let profileData;
-let newCardData;
 
 //Popups
 
@@ -112,15 +124,20 @@ avatarPopup.setEventListeners();
 //HANDLES
 
 function handleDeleteConfirmation(card, id) {
-  card.handleDeleteCard(id);
+  api
+    .deleteCard(id)
+    .then(() => card.handleDeleteCard(id))
+    .catch((err) => console.error(`${err}, Failed to delete card`));
 }
 
 function handleProfileUpdate(userData) {
-  initialUserData.setUserInfo(userData);
   profilePopup.setLoading(true);
   api
     .updateUserData(userData)
-    .then(() => profilePopup.close())
+    .then(() => {
+      initialUserData.setUserInfo(userData);
+      profilePopup.close();
+    })
     .catch((err) => console.error(`${err}, Failed to update Avatar`))
     .finally(() => profilePopup.setLoading(false));
 }
@@ -129,19 +146,12 @@ function handleAddCard(cardData) {
   newCardPopup.setLoading(true);
   api
     .createCard(cardData)
-    .then((result) => {
-      if (result.ok) return result.json();
-    })
     .then((data) => {
-      // console.log(`**handleAddCard**${data}`);
       const cardFormElement = createCard(data);
       cardSection.addItem(cardFormElement);
-
-      // ************************************************************************** need to pull id from server now or before like and delete
-
       newCardPopup.close();
     })
-    .catch((err) => console.error(`${err}, Failed to update Avatar`))
+    .catch((err) => console.error(`${err}, Failed to add Card`))
     .finally(() => newCardPopup.setLoading(false));
 }
 
@@ -161,16 +171,14 @@ function handleUpdateAvatar(input) {
 
 profileEditButton.addEventListener("click", () => {
   formValidators["profileForm"].resetValidation();
-  profileData = initialUserData
-    .getUserInfo()
-    .then((results) => results.json())
+  api
+    .getUserData()
     .then((data) => {
-      data;
-
       profileNameInput.value = data.name;
       profileAboutInput.value = data.about;
-    });
-  profilePopup.open();
+      profilePopup.open();
+    })
+    .catch((err) => console.error(`${err} Profile data may be incorrect`));
 });
 
 cardAddButton.addEventListener("click", () => {

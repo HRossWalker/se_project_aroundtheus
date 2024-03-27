@@ -154,7 +154,7 @@
     </div>
 
     <div class="modal" id="modal-delete">
-      <div class="modal__delete-modal">
+      <div class="modal__delete-container">
         <button class="modal__close" id="modal-delete-close"></button>
         <p class="modal__delete-heading">Are you sure?</p>
         <button class="modal__delete-btn" id="modal-del-btn">Yes</button>
@@ -162,7 +162,7 @@
     </div>
 
     <div class="modal" id="modal-avatar">
-      <div class="modal__avatar">
+      <div class="modal__container">
         <button class="modal__close" id="modal-avatar-close"></button>
         <form
           class="modal__form"
@@ -170,8 +170,8 @@
           name="avatarUpdate"
           novalidate
         >
-          <p class="modal__avatar-heading">Change profile picture?</p>
-          <label class="modal__label-avatar-input">
+          <p class="modal__heading">Change profile picture?</p>
+          <label class="modal__label">
             <input
               class="modal__input"
               type="url"
@@ -185,7 +185,7 @@
               id="modal-avatar-link-input-error"
             ></span>
           </label>
-          <label class="modal__label-avatar">
+          <label class="modal__label">
             <button
               class="modal__save-button modal__button-disabled"
               id="modal-avatar-btn"

@@ -15,8 +15,8 @@ class Card {
     this._likeStatus = data.isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this._handleLikeDisLike = handleLikeDislikeClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeDislike = handleLikeDislikeClick;
   }
 
   _setEventListeners() {
@@ -24,7 +24,9 @@ class Card {
       this._handleImageClick(this)
     );
 
-    this._likeIcon.addEventListener("click", () => this._handleLikeIcon());
+    this._likeIcon.addEventListener("click", () =>
+      this._handleLikeDislike(this._likeStatus, this._id)
+    );
 
     this._trashIcon.addEventListener("click", () => {
       this._handleDeleteClick(this._id);
@@ -34,26 +36,12 @@ class Card {
 
   _handleLikeIcon() {
     this._likeIcon.classList.toggle("card__like-button_active");
-    if (!this._likeStatus) {
-      api.likeCard(this._id);
-    }
-    api.disLikeCard(this._id);
-  }
-
-  _handleDeleteConfirm(id) {
-    deleteConfirmPopup.open(id);
   }
 
   handleDeleteCard(cardId) {
     this._cardElement.remove();
-    api.deleteCard(cardId);
     // this._cardElement = null;
   }
-
-  // _handleDeleteCard() {
-  //   // we can do any actions here
-  //   this._handleDeleteClick(this._id);
-  // }
 
   _getTemplate() {
     this._cardElement = document

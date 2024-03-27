@@ -1,5 +1,3 @@
-import { api } from "../pages/index.js";
-
 class UserInfo {
   constructor(userData) {
     this._name = document.querySelector(".profile__name");
@@ -10,10 +8,6 @@ class UserInfo {
     this._avatar.src = userData.avatar;
   }
 
-  getUserInfo() {
-    return api.getUserData();
-  }
-
   setUserAvatar(link) {
     this._avatar.src = link;
   }
@@ -21,7 +15,6 @@ class UserInfo {
   setUserInfo({ name, about }) {
     this._name.textContent = name;
     this._about.textContent = about;
-    api.updateUserData({ name, about });
   }
 }
 

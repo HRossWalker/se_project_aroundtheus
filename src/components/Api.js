@@ -10,13 +10,9 @@ class Api {
       headers: {
         authorization: `${this._auth}`,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then((res) => this._checkResponse(res));
   }
+
   //get
   getUserData() {
     //get
@@ -26,7 +22,7 @@ class Api {
         authorization: `${this._auth}`,
         "Content-Type": "application/json",
       },
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   updateUserData({ name, about }) {
@@ -38,7 +34,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: `${name}`, about: `${about}` }),
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   updateAvatar(link) {
@@ -50,7 +46,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ avatar: link }),
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   getCards(id) {
@@ -60,7 +56,7 @@ class Api {
       headers: {
         authorization: `${this._auth}`,
       },
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   createCard({ name, link }) {
@@ -72,7 +68,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: `${name}`, link: `${link}` }),
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   deleteCard(id) {
@@ -83,7 +79,7 @@ class Api {
         authorization: `${this._auth}`,
         "Content-Type": "application/json",
       },
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   likeCard(id) {
@@ -95,7 +91,7 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ isLiked: true }),
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   disLikeCard(id) {
@@ -106,13 +102,14 @@ class Api {
         authorization: `${this._auth}`,
         "Content-Type": "application/json",
       },
-      // .then((res) => {
-      //   if (res.ok) {
-      //     const isLiked = false;
-      //   }
-      //   return Promise.reject(`Error: ${res.status}`);
-      // })
-    });
+    }).then((res) => this._checkResponse(res));
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
   }
 }
 
