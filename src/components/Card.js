@@ -30,7 +30,6 @@ class Card {
 
     this._trashIcon.addEventListener("click", () => {
       this._handleDeleteClick(this._id);
-      // this._handleDeleteCard();
     });
   }
 
@@ -38,7 +37,7 @@ class Card {
     this._likeIcon.classList.toggle("card__like-button_active");
   }
 
-  handleDeleteCard(cardId) {
+  handleDeleteCard() {
     this._cardElement.remove();
     // this._cardElement = null;
   }

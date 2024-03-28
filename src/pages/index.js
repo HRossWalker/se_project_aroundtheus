@@ -14,7 +14,6 @@ import {
   profileAboutInput,
   cardListElement,
   config,
-  avatarProfileImage,
 } from "../utils/utils.js";
 import Section from "../components/Section.js";
 
@@ -54,8 +53,6 @@ api
 api
   .getInitialCards()
   .then((data) => {
-    data;
-
     cardSection = new Section(
       {
         data: data,
@@ -123,10 +120,37 @@ avatarPopup.setEventListeners();
 
 //HANDLES
 
+// function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+//   popupInstance.renderLoading(true, loadingText);
+//   request()
+//     .then(() => {
+//       popupInstance.close();
+//     })
+//     .catch(console.error)
+//     .finally(() => {
+//       popupInstance.renderLoading(false);
+//     });
+// }
+
+// function handleProfileFormSubmit(inputValues) {
+//         we create a function that returns a promise
+//   function makeRequest() {
+//        `return` lets us use a promise chain `then, catch, finally` inside `handleSubmit`
+//     return api.editProfile(inputValues).then((userData) => {
+//       userInfo.setUserInfo(userData)
+//     });
+//   }
+//         Here we call the function passing the request, popup instance and if we need some other loading text we can pass it as the 3rd argument
+//   handleSubmit(makeRequest, profilePopup);
+// }
+
 function handleDeleteConfirmation(card, id) {
   api
     .deleteCard(id)
-    .then(() => card.handleDeleteCard(id))
+    .then(() => {
+      card.handleDeleteCard();
+      deleteConfirmPopup.close();
+    })
     .catch((err) => console.error(`${err}, Failed to delete card`));
 }
 
@@ -138,8 +162,11 @@ function handleProfileUpdate(userData) {
       initialUserData.setUserInfo(userData);
       profilePopup.close();
     })
-    .catch((err) => console.error(`${err}, Failed to update Avatar`))
-    .finally(() => profilePopup.setLoading(false));
+    .catch((err) => console.error(`${err}, Failed to update Profile Info`))
+    .finally(() => {
+      profilePopup.setLoading(false);
+      profilePopup.setSave();
+    });
 }
 
 function handleAddCard(cardData) {
@@ -152,7 +179,10 @@ function handleAddCard(cardData) {
       newCardPopup.close();
     })
     .catch((err) => console.error(`${err}, Failed to add Card`))
-    .finally(() => newCardPopup.setLoading(false));
+    .finally(() => {
+      newCardPopup.setLoading(false);
+      newCardPopup.setSave();
+    });
 }
 
 function handleUpdateAvatar(input) {
@@ -160,11 +190,14 @@ function handleUpdateAvatar(input) {
   api
     .updateAvatar(input.link)
     .then(() => {
-      avatarProfileImage.src = input.link;
+      initialUserData.setUserAvatar(input.link);
       avatarPopup.close();
     })
     .catch((err) => console.error(`${err}, Failed to update Avatar`))
-    .finally(() => avatarPopup.setLoading(false));
+    .finally(() => {
+      avatarPopup.setLoading(false);
+      avatarPopup.setSave();
+    });
 }
 
 //EVENT LISTENER

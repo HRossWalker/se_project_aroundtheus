@@ -10,23 +10,20 @@ class Api {
       headers: {
         authorization: `${this._auth}`,
       },
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
-  //get
   getUserData() {
-    //get
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: {
         authorization: `${this._auth}`,
         "Content-Type": "application/json",
       },
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   updateUserData({ name, about }) {
-    //patch
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
@@ -34,11 +31,10 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: `${name}`, about: `${about}` }),
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   updateAvatar(link) {
-    //patch
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
@@ -46,21 +42,19 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ avatar: link }),
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   getCards(id) {
-    //get
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "GET",
       headers: {
         authorization: `${this._auth}`,
       },
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   createCard({ name, link }) {
-    //post
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: {
@@ -68,22 +62,20 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: `${name}`, link: `${link}` }),
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   deleteCard(id) {
-    //delete
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: {
         authorization: `${this._auth}`,
         "Content-Type": "application/json",
       },
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   likeCard(id) {
-    //put
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: {
@@ -91,18 +83,17 @@ class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ isLiked: true }),
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   disLikeCard(id) {
-    //delete
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: {
         authorization: `${this._auth}`,
         "Content-Type": "application/json",
       },
-    }).then((res) => this._checkResponse(res));
+    }).then(this._checkResponse);
   }
 
   _checkResponse(res) {
@@ -111,13 +102,11 @@ class Api {
     }
     return Promise.reject(`Error: ${res.status}`);
   }
+
+  // _request(url, options) {
+  //   return fetch(url, options).then(this._checkResponse);
+  // }
+  //****** Tried this method and it made the each Api getUserData() not operable, and seems to think its not a promise...
 }
 
 export default Api;
-
-// .then((res) => {
-//   if (res.ok) {
-//     return res.json();
-//   }
-//   return Promise.reject(`Error: ${res.status}`);
-// })
