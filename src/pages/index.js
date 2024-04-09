@@ -43,26 +43,29 @@ export const api = new Api({
   authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
 });
 
-api.getServerData().then(([data, cards]) => {
-  initialUserData = new UserInfo(
-    "#profile-name",
-    "#profile-about",
-    "#profile-avatar"
-  );
-  initialUserData.setUserInfo(data);
+api
+  .getServerData()
+  .then(([data, cards]) => {
+    initialUserData = new UserInfo(
+      "#profile-name",
+      "#profile-about",
+      "#profile-avatar"
+    );
+    initialUserData.setUserInfo(data);
 
-  cardSection = new Section(
-    {
-      data: cards,
-      renderer: (data) => {
-        const cardElement = createCard(data);
-        cardSection.addItem(cardElement);
+    cardSection = new Section(
+      {
+        data: cards,
+        renderer: (data) => {
+          const cardElement = createCard(data);
+          cardSection.addItem(cardElement);
+        },
       },
-    },
-    cardListElement
-  );
-  cardSection.renderItems();
-});
+      cardListElement
+    );
+    cardSection.renderItems();
+  })
+  .catch((err) => console.error(`${err}, Failed to load from server`));
 
 const createCard = (cardItem) => {
   const card = new Card(
@@ -185,7 +188,9 @@ function handleUpdateAvatar(input) {
   api
     .updateAvatar(input.link)
     .then(() => {
-      initialUserData.setUserAvatar(input.link);
+      const avatarInput = {};
+      avatarInput.avatar = input.link;
+      initialUserData.setUserInfo(avatarInput);
       avatarPopup.close();
     })
     .catch((err) => console.error(`${err}, Failed to update Avatar`))

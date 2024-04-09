@@ -9,10 +9,6 @@ class UserInfo {
     return { name: this._name.textContent, about: this._about.textContent };
   }
 
-  setUserAvatar(link) {
-    this._avatar.src = link;
-  }
-
   setUserInfo({ name, about, avatar }) {
     if (name) this._name.textContent = name;
     if (about) this._about.textContent = about;
