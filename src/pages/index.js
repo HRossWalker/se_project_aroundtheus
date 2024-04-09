@@ -152,7 +152,7 @@ function handleDeleteConfirmation(card, id) {
 }
 
 function handleProfileUpdate(userData) {
-  profilePopup.setLoading(true);
+  profilePopup.renderLoading(true);
   api
     .updateUserData(userData)
     .then(() => {
@@ -161,12 +161,12 @@ function handleProfileUpdate(userData) {
     })
     .catch((err) => console.error(`${err}, Failed to update Profile Info`))
     .finally(() => {
-      profilePopup.setSave();
+      profilePopup.renderLoading(false);
     });
 }
 
 function handleAddCard(cardData) {
-  newCardPopup.setLoading(true);
+  newCardPopup.renderLoading(true);
   api
     .createCard(cardData)
     .then((data) => {
@@ -176,12 +176,12 @@ function handleAddCard(cardData) {
     })
     .catch((err) => console.error(`${err}, Failed to add Card`))
     .finally(() => {
-      newCardPopup.setSave();
+      newCardPopup.renderLoading(false);
     });
 }
 
 function handleUpdateAvatar(input) {
-  avatarPopup.setLoading(true);
+  avatarPopup.renderLoading(true);
   api
     .updateAvatar(input.link)
     .then(() => {
@@ -190,7 +190,7 @@ function handleUpdateAvatar(input) {
     })
     .catch((err) => console.error(`${err}, Failed to update Avatar`))
     .finally(() => {
-      avatarPopup.setSave();
+      avatarPopup.renderLoading(false);
     });
 }
 

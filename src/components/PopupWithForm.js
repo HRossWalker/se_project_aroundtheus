@@ -7,10 +7,7 @@ class PopupWithForm extends Popup {
     this._submitButton = this._modalEl.querySelector(".modal__save-button");
     this._handleFormSubmit = handleFormSubmit;
     this._list = [...this._popupForm.querySelectorAll(".modal__input")];
-  }
-
-  setSave() {
-    this._submitButton.textContent = "Save";
+    this._submitButtonText = this._submitButton.textContent;
   }
 
   close() {
@@ -18,11 +15,20 @@ class PopupWithForm extends Popup {
     super.close();
   }
 
-  setLoading(loading) {
-    if (loading) {
-      this._submitButton.textContent = "Saving...";
+  renderLoading(isLoading, loadingText = "Saving...") {
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+    } else {
+      this._submitButton.textContent = this._submitButtonText;
     }
   }
+
+  // setInputValues(data) {
+  //   this._inputList.forEach((input) => {
+  //        here you insert the `value` by the `name` of the input
+  //     input.value = data[input.name];
+  //   });
+  // }
 
   _getInputValues() {
     const inputData = {};
