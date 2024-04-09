@@ -35,6 +35,7 @@ export const profileAboutInput = document.querySelector("#modal-about-input");
 export const avatarUpdateButton = document.querySelector(
   ".profile__avatar-edit"
 );
+// export const profileAvatar = document.querySelector("#modal-avatar-input");
 
 //CARD ELEMENTS
 

@@ -27,17 +27,22 @@
         <section class="profile page__section">
           <div class="profile__avatar-container">
             <button class="profile__avatar-edit"></button>
-            <img src="" alt="Avatar" class="profile__image" />
+            <img
+              src=""
+              alt="Avatar"
+              class="profile__image"
+              id="profile-avatar"
+            />
           </div>
           <div class="profile__info">
-            <h1 class="profile__name"></h1>
+            <h1 class="profile__name" id="profile-name"></h1>
             <button
               type="button"
               class="profile__edit-button"
               id="profile-edit-button"
             ></button>
 
-            <p class="profile__about"></p>
+            <p class="profile__about" id="profile-about"></p>
           </div>
           <button
             type="button"
@@ -176,13 +181,13 @@
               class="modal__input"
               type="url"
               name="link"
-              id="modal-avatar-link-input"
+              id="modal-avatar-input"
               placeholder="Link address"
               required
             />
             <span
               class="modal__input-error"
-              id="modal-avatar-link-input-error"
+              id="modal-avatar-input-error"
             ></span>
           </label>
           <label class="modal__label">

@@ -33,7 +33,7 @@ class Card {
     });
   }
 
-  _handleLikeIcon() {
+  handleLikeIcon() {
     this._likeIcon.classList.toggle("card__like-button_active");
   }
 

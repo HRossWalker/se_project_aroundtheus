@@ -43,29 +43,26 @@ export const api = new Api({
   authorization: "7dcd9a93-149c-4e56-87db-9285c9177a9e",
 });
 
-api
-  .getUserData()
-  .then((data) => {
-    initialUserData = new UserInfo(data);
-  })
-  .catch((err) => console.error(`${err} Profile info may be incorrect`));
+api.getServerData().then(([data, cards]) => {
+  initialUserData = new UserInfo(
+    "#profile-name",
+    "#profile-about",
+    "#profile-avatar"
+  );
+  initialUserData.setUserInfo(data);
 
-api
-  .getInitialCards()
-  .then((data) => {
-    cardSection = new Section(
-      {
-        data: data,
-        renderer: (data) => {
-          const cardElement = createCard(data);
-          cardSection.addItem(cardElement);
-        },
+  cardSection = new Section(
+    {
+      data: cards,
+      renderer: (data) => {
+        const cardElement = createCard(data);
+        cardSection.addItem(cardElement);
       },
-      cardListElement
-    );
-    cardSection.renderItems();
-  })
-  .catch((err) => console.error(`${err} Cards may be missing`));
+    },
+    cardListElement
+  );
+  cardSection.renderItems();
+});
 
 const createCard = (cardItem) => {
   const card = new Card(
@@ -82,12 +79,12 @@ const createCard = (cardItem) => {
       if (!likeStatus) {
         api
           .likeCard(id)
-          .then(() => card._handleLikeIcon())
+          .then(() => card.handleLikeIcon())
           .catch((err) => console.error(`${err}, Failed to like card`));
       } else {
         api
           .disLikeCard(id)
-          .then(() => card._handleLikeIcon())
+          .then(() => card.handleLikeIcon())
           .catch((err) => console.error(`${err}, Failed to dislike card`));
       }
     }
@@ -164,7 +161,6 @@ function handleProfileUpdate(userData) {
     })
     .catch((err) => console.error(`${err}, Failed to update Profile Info`))
     .finally(() => {
-      profilePopup.setLoading(false);
       profilePopup.setSave();
     });
 }
@@ -180,7 +176,6 @@ function handleAddCard(cardData) {
     })
     .catch((err) => console.error(`${err}, Failed to add Card`))
     .finally(() => {
-      newCardPopup.setLoading(false);
       newCardPopup.setSave();
     });
 }
@@ -195,7 +190,6 @@ function handleUpdateAvatar(input) {
     })
     .catch((err) => console.error(`${err}, Failed to update Avatar`))
     .finally(() => {
-      avatarPopup.setLoading(false);
       avatarPopup.setSave();
     });
 }
@@ -204,14 +198,10 @@ function handleUpdateAvatar(input) {
 
 profileEditButton.addEventListener("click", () => {
   formValidators["profileForm"].resetValidation();
-  api
-    .getUserData()
-    .then((data) => {
-      profileNameInput.value = data.name;
-      profileAboutInput.value = data.about;
-      profilePopup.open();
-    })
-    .catch((err) => console.error(`${err} Profile data may be incorrect`));
+  const data = initialUserData.getUserInfo();
+  profileNameInput.value = data.name;
+  profileAboutInput.value = data.about;
+  profilePopup.open();
 });
 
 cardAddButton.addEventListener("click", () => {
