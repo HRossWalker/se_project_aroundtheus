@@ -25,21 +25,24 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/H-Ross-Walker.jpg')%>"
-            alt="Picture of H-Ross-Walker,
-          the famous Viking Coder"
-            class="profile__image"
-          />
+          <div class="profile__avatar-container">
+            <button class="profile__avatar-edit"></button>
+            <img
+              src=""
+              alt="Avatar"
+              class="profile__image"
+              id="profile-avatar"
+            />
+          </div>
           <div class="profile__info">
-            <h1 class="profile__name">H. Ross Walker</h1>
+            <h1 class="profile__name" id="profile-name"></h1>
             <button
               type="button"
               class="profile__edit-button"
               id="profile-edit-button"
             ></button>
 
-            <p class="profile__job">Viking Coder</p>
+            <p class="profile__about" id="profile-about"></p>
           </div>
           <button
             type="button"
@@ -84,14 +87,17 @@
             <input
               class="modal__input"
               type="text"
-              name="job"
-              id="modal-job-input"
-              placeholder="Job"
+              name="about"
+              id="modal-about-input"
+              placeholder="about"
               minlength="2"
               maxlength="200"
               required
             />
-            <span class="modal__input-error" id="modal-job-input-error"></span>
+            <span
+              class="modal__input-error"
+              id="modal-about-input-error"
+            ></span>
           </label>
           <button class="modal__save-button modal__button-disabled" disabled>
             Save
@@ -152,8 +158,53 @@
       </div>
     </div>
 
+    <div class="modal" id="modal-delete">
+      <div class="modal__delete-container">
+        <button class="modal__close" id="modal-delete-close"></button>
+        <p class="modal__delete-heading">Are you sure?</p>
+        <button class="modal__delete-btn" id="modal-del-btn">Yes</button>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-avatar">
+      <div class="modal__container">
+        <button class="modal__close" id="modal-avatar-close"></button>
+        <form
+          class="modal__form"
+          id="modal-avatar-form"
+          name="avatarUpdate"
+          novalidate
+        >
+          <p class="modal__heading">Change profile picture?</p>
+          <label class="modal__label">
+            <input
+              class="modal__input"
+              type="url"
+              name="link"
+              id="modal-avatar-input"
+              placeholder="Link address"
+              required
+            />
+            <span
+              class="modal__input-error"
+              id="modal-avatar-input-error"
+            ></span>
+          </label>
+          <label class="modal__label">
+            <button
+              class="modal__save-button modal__button-disabled"
+              id="modal-avatar-btn"
+              disabled
+            >
+              Save
+            </button>
+          </label>
+        </form>
+      </div>
+    </div>
+
     <template id="card-template">
-      <li class="card">
+      <li class="card" id="">
         <button type="button" class="card__trash-button"></button>
         <img src="" alt="" class="card__image" />
         <div class="card__description">

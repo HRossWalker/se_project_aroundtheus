@@ -4,6 +4,17 @@
   max-width: 880px;
   width: 100%;
 }
+.profile__avatar-container {
+  position: relative;
+}
+
+.profile__avatar-container:hover .profile__image {
+  opacity: 0.6;
+}
+
+.profile__avatar-container:hover .profile__avatar-edit {
+  opacity: 1;
+}
 
 .profile__image {
   width: 120px;
@@ -12,7 +23,51 @@
   object-fit: cover;
   background-position: center;
   margin-right: 24px;
+  transition: opacity 1s;
 }
+
+/* .profile__image:hover {
+  cursor: pointer;
+  opacity: 0.6;
+} */
+
+.profile__avatar-edit {
+  position: absolute;
+  background: transparent url(../images/edit-white.svg) center no-repeat;
+  background-size: contain;
+  left: 47px;
+  top: 47px;
+  width: 26px;
+  height: 26px;
+  /* background-color: #fff; */
+  opacity: 0;
+  transition: opacity 1s;
+  border: none;
+  z-index: 3;
+}
+
+/* .profile__image-edit-icon {
+  position: absolute;
+  left: 47px;
+  top: 47px;
+  width: 26px;
+  height: 26px;
+  opacity: 0;
+  transition: opacity 1s;
+} */
+
+/* .profile__image:hover .profile__image-edit {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.profile__image:hover .profile__image-edit-icon {
+  opacity: 1;
+} */
+
+/* .profile__image-edit:hover {
+  opacity: 0.6;
+} */
 
 .profile__edit-button {
   background: transparent url(../images/edit-white.svg) center no-repeat;
@@ -52,7 +107,7 @@
   grid-template-columns: minmax(auto, 391px) auto;
 }
 
-.profile__job {
+.profile__about {
   max-width: 373px;
   grid-area: description;
   font-size: 18px;
@@ -106,7 +161,7 @@
     margin-top: 26px;
   }
 
-  .profile__job {
+  .profile__about {
     width: 100%;
     text-align: center;
     font-size: 14px;
